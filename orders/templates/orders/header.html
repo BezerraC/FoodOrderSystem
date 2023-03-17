@@ -1,0 +1,79 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'orders/style.css' %}">
+
+    <!-- For the toasts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" /> {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/main.js' %}">
+
+
+    <title>Pedido de comida</title>
+</head>
+
+<body>
+
+    {% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-light shadow bg-light" id="topNav">
+        <a class="navbar-brand" href="/">
+            <img src="static/img/default-logo-300x150.png" width="80" class="d-inline-block align-top" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fa fa-cutlery"></i> <b>Cardápio</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="/view-orders" class="nav-link"><i class="fa fa-th-list"></i> <b>Pedidos</b></a>
+                </li>
+                <li class="nav-item">
+                    <a href="/cart" id="cart_button" class="nav-link"><span class="badge badge-dark" id="cart-count"></span> <b>Carrinho</b> <i class="fa fa-shopping-cart"></i></a>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link" href="/directions"><i class="fa fa-map-marker"></i> Our Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/hours"><i class="fa fa-clock-o"></i> Shop Hours</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact"><i class="fa fa-phone"></i> Contact Us</a>
+                </li> -->
+            </ul>
+            <hr style="margin-top: 0.25rem;margin-bottom: 0.25rem;">
+            <span class="navbar-text d-flex align-items-sm-center align-items-baseline flex-sm-row flex-column">
+                <b class="mr-3 mb-2 mb-sm-0">Olá, {% firstof user.get_short_name user.get_username %}</b>
+                <!--<a href="/view-orders" class="btn btn-primary text-light btn-sm border rounded-0"><i class="fa fa-th-list"></i> Pedidos</a>
+                <a href="/cart" id="cart_button" class="btn btn-success border btn-sm rounded-0" style="color:white;"><span class="badge badge-light" id="cart-count"></span> Carrinho <i class="fa fa-shopping-cart"></i></a>-->
+
+                <button type="button" class="btn btn-dark btn-sm rounded-0" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</button>
+            </span>
+            
+        </div>
+    </nav>
+    {% endif %}
+    {% block content %} {% endblock %}
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{% static 'orders/main.js' %}"></script>
+</body>
+
+</html>

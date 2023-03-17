@@ -1,0 +1,67 @@
+{% extends 'orders/header.html' %} {% load custom_tags %} {% load humanize %} {% block content %}
+
+<div class="container-fluid">
+    <div class="content my-3 px-4">
+        <div class="card shadow rounded-0">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    {% if user.is_superuser %}
+                    <fieldset class="pb-2 mb-3 border w-100">
+                        <legend class="px-3 w-auto ml-3">Instruções:</legend>
+                        <ul>
+                            <li>Clique na linha do pedido <small><i>(Linha Preenchida Vermelha)</i></small> para marcá-lo como entregue</li>
+                        </ul>
+                    </fieldset>
+                    {% else %}
+                    <h2 class="mb-3"> Lista de Pedidos </h2>
+                    {% endif %}
+
+                    <table class="table" id="order-tbl">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Atendente</th>
+                                <th scope="col">Data/Hora</th>
+                                <th scope="col">Mesa</th>
+                                <th scope="col">Pedido</th>
+                                <th scope="col">Valor Todal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders_table">
+                            {% for row in rows %} {% if row.delivered %}
+                            <tr class="table-success">
+                                {% else %}
+                                <tr class="table-danger mark-as-complete">
+                                    {% endif %}
+                                    <td>{{row.id}}</td>
+                                    <td>{{row.username}}</td>
+                                    <td>{{row.time_of_order}}</td>
+                                    <td>{{row.table}}</td>
+                                    <td>
+                                        <ul>
+                                            {% for item in row.order|format_cart %}
+                                            <li>{{item|format_cart_item}}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>R$ {{row.price|floatformat:2|intcomma}}</td>
+                                </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script> 
+    const myTimeout = setTimeout(setInterval, 10000);
+
+    function setInterval() {
+    window.location.reload();
+    }
+</script>
+
+
+{% endblock %}
