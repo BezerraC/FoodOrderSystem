@@ -59,6 +59,13 @@ To use Food Order System, follow these steps:
 python manage.py runserver
 ```
 
+The login credentials is:
+
+```
+username: admin
+password: admin123
+```
+
 To run the tests use:
 
 ```
